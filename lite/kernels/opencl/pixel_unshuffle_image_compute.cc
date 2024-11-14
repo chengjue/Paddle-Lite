@@ -63,7 +63,8 @@ class PixelUnShuffleComputeImage2D
     auto out_dims = pixel_unshuffle_param_->output->dims();
     VLOG(1) << "x_dims:  " << x_dims;
     VLOG(1) << "out_dims:  " << out_dims;
-    VLOG(1) << "downscale_factor:  " << pixel_unshuffle_param_->downscale_factor;
+    VLOG(1) << "downscale_factor:  "
+            << pixel_unshuffle_param_->downscale_factor;
 
     if ((!first_epoch_for_reinit_ && x_dims != last_x_dims_) ||
         first_epoch_for_reinit_) {
@@ -137,7 +138,6 @@ class PixelUnShuffleComputeImage2D
     CL_CHECK_FATAL(status);
     status = kernel.setArg(10, downscale_factor);
     CL_CHECK_FATAL(status);
-    
 
     status = EnqueueNDRangeKernel(context,
                                   kernel,
@@ -176,12 +176,13 @@ class PixelUnShuffleComputeImage2D
 }  // namespace lite
 }  // namespace paddle
 
-REGISTER_LITE_KERNEL(pixel_unshuffle,
-                     kOpenCL,
-                     kFP16,
-                     kImageDefault,
-                     paddle::lite::kernels::opencl::PixelUnShuffleComputeImage2D,
-                     image2d)
+REGISTER_LITE_KERNEL(
+    pixel_unshuffle,
+    kOpenCL,
+    kFP16,
+    kImageDefault,
+    paddle::lite::kernels::opencl::PixelUnShuffleComputeImage2D,
+    image2d)
     .BindInput("X",
                {LiteType::GetTensorTy(TARGET(kOpenCL),
                                       PRECISION(kFP16),

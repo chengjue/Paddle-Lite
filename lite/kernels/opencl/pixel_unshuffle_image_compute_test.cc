@@ -11,9 +11,8 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-#include <random>
-
 #include <gtest/gtest.h>
+#include <random>
 #include "lite/backends/opencl/target_wrapper.h"
 #include "lite/core/op_registry.h"
 #include "lite/core/tensor.h"
@@ -60,11 +59,11 @@ TEST(pixel_unshuffle_image2d, compute) {
 
   const DDim in_dim =
       DDim(std::vector<DDim::value_type>{INPUT_N, INPUT_C, INPUT_H, INPUT_W});
-  const DDim out_dim = DDim(
-      std::vector<DDim::value_type>{INPUT_N,
-                                    INPUT_C * DOWNSCALE_FACTOR * DOWNSCALE_FACTOR,
-                                    INPUT_H / DOWNSCALE_FACTOR,
-                                    INPUT_W / DOWNSCALE_FACTOR});
+  const DDim out_dim = DDim(std::vector<DDim::value_type>{
+      INPUT_N,
+      INPUT_C * DOWNSCALE_FACTOR * DOWNSCALE_FACTOR,
+      INPUT_H / DOWNSCALE_FACTOR,
+      INPUT_W / DOWNSCALE_FACTOR});
   LOG(INFO) << "in_dim: " << in_dim;
   LOG(INFO) << "DOWNSCALE_FACTOR: " << DOWNSCALE_FACTOR;
   LOG(INFO) << "out_dim: " << out_dim;
